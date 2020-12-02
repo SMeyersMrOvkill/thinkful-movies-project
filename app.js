@@ -7,9 +7,13 @@ const helmet = require('helmet');
 
 const moviesData = require('./movies-data')
 
+const PORT = process.env.PORT || 8080;
+
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common'
+
 const app = express();
 
-app.use(morgan("common"));
+app.use(morgan(morganSetting));
 app.use(cors());
 app.use(helmet());
 
@@ -57,6 +61,6 @@ app.get('/movie', (req, res) => {
     return res.json(results);
 });
 
-app.listen(8080, () => {
-    console.log("Listening on 8080");
+app.listen(PORT, () => {
+    console.log("Listening at http://localhost:" + PORT);
 });
